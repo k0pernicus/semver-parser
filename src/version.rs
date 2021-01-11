@@ -380,6 +380,19 @@ mod tests {
     }
 
     #[test]
+    fn parse_prerelease_composed_alphanumeric() {
+        let version = "1.2.3-alpha.2a";
+
+        let parsed = version::parse(version).unwrap();
+
+        let expected_pre = vec![
+            Identifier::AlphaNumeric(String::from("alpha")),
+            Identifier::AlphaNumeric(String::from("2a")),
+        ];
+        assert_eq!(expected_pre, parsed.pre);
+    }
+
+    #[test]
     fn parse_prerelease_zero() {
         let version = "1.2.3-pre.0";
 
